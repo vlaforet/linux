@@ -910,6 +910,13 @@ void __noreturn do_exit(long code)
 	if (tsk->io_context)
 		exit_io_context(tsk);
 
+	if (tsk->extend_map) {
+		unsigned long addr = (unsigned long)tsk->extend_map;
+
+		virt_to_page(addr)->mapping = NULL;
+		free_page(addr);
+	}
+
 	if (tsk->splice_pipe)
 		free_pipe_info(tsk->splice_pipe);
 

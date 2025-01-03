@@ -745,6 +745,10 @@ struct kmap_ctrl {
 #endif
 };
 
+struct extend_map {
+	long				flags;
+};
+
 struct task_struct {
 #ifdef CONFIG_THREAD_INFO_IN_TASK
 	/*
@@ -805,6 +809,8 @@ struct task_struct {
 	unsigned long			core_cookie;
 	unsigned int			core_occupation;
 #endif
+
+	struct extend_map		*extend_map;
 
 #ifdef CONFIG_CGROUP_SCHED
 	struct task_group		*sched_task_group;
